@@ -4,9 +4,25 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import git.myapplication.recyclerviewbasic.databinding.ListItemBinding
+import java.util.*
+import kotlin.collections.ArrayList
 
-class RecyclerViewAdapter(private val dataSet: ArrayList<List<String>>) :
-    RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+    private val dataSet: ArrayList<List<String>> = arrayListOf<List<String>>().apply {
+        for(i in 0 .. 99){
+            add(listOf("$i th main", "$i th sub"))
+        }
+    }
+
+    fun removeData(position: Int){
+        dataSet.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
+    fun swapData(fromPos: Int, toPos: Int){
+        Collections.swap(dataSet, fromPos, toPos)
+        notifyItemMoved(fromPos, toPos)
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
