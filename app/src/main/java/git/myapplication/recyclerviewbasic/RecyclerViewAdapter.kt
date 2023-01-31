@@ -3,6 +3,7 @@ package git.myapplication.recyclerviewbasic
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import git.myapplication.recyclerviewbasic.databinding.ListItemBinding
 import java.util.*
 import kotlin.collections.ArrayList
@@ -24,6 +25,12 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
         notifyItemMoved(fromPos, toPos)
     }
 
+    fun setData(position: Int){
+        dataSet[position] = listOf("main viewholder touched!", "sub viewholder touched!")
+        notifyItemChanged(position)
+    }
+
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -40,12 +47,24 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
         return dataSet.size
     }
 
-    class ViewHolder(private val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: List<String>) {
             binding.tvMain.text = data[0]
             binding.tvSub.text = data[1]
+
+            binding.vhLayout.setOnClickListener {
+                Snackbar.make(it,"item $layoutPosition touched!", Snackbar.LENGTH_SHORT).show()
+                setData(layoutPosition)
+            }
+
+
         }
+
+
+
+
     }
+
 
 }

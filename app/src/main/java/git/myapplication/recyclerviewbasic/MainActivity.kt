@@ -68,6 +68,15 @@ class MainActivity : AppCompatActivity() {
                             itemView.bottom.toFloat()
                         )
                         c.drawRect(background, paint)
+
+                        icon = BitmapFactory.decodeResource(resources, R.drawable.ic_menu_delete)
+                        val iconDst = RectF(
+                            itemView.right.toFloat() - 3 * width,
+                            itemView.top.toFloat() + width,
+                            itemView.right.toFloat() - width,
+                            itemView.bottom.toFloat() - width
+                        )
+                        c.drawBitmap(icon, null, iconDst, null)
                     }
 
                 }
